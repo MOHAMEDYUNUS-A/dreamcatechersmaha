@@ -1,0 +1,1685 @@
+/* ==========================================================
+   WORKFORCE SAUDIA - DIGITAL BUSINESS CARD DESIGN SYSTEM
+   Brand Colors: Teal, Dark Slate, Charcoal, Off-White
+   ========================================================== */
+
+:root {
+  /* Brand Palette */
+  --primary: #0F8B8D;
+  --primary-dark: #086D70;
+  --primary-deep: #05484B;
+  --primary-light: #38B2B0;
+  --primary-subtle: #E8F7F7;
+  --accent-glow: rgba(15, 139, 141, 0.28);
+  
+  /* Neutral Palette */
+  --dark-bg: #0C1115;
+  --dark-surface: #141B20;
+  --dark-card: #192228;
+  --text-main: #182226;
+  --text-muted: #5C6A72;
+  --text-light: #F4F8F8;
+  --text-light-muted: #9BB0BA;
+  
+  --white: #FFFFFF;
+  --card-surface: #FCFDFD;
+  --surface-alt: #F3F7F7;
+  --border-card: rgba(15, 139, 141, 0.18);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(12, 17, 21, 0.05);
+  --shadow-md: 0 10px 30px rgba(12, 17, 21, 0.08), 0 2px 6px rgba(15, 139, 141, 0.04);
+  --shadow-lg: 0 20px 45px rgba(12, 17, 21, 0.14), 0 4px 16px rgba(15, 139, 141, 0.08);
+  --shadow-teal: 0 12px 32px rgba(15, 139, 141, 0.24);
+
+  /* Typography */
+  --font-en: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-ar: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+
+  /* Layout */
+  --container-max: 680px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 9999px;
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================
+   RESET & BASE
+   ========================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-en);
+  background-color: #F4F7F7;
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 90px; /* Space for mobile sticky bottom bar */
+}
+
+/* Background Corporate Geometric Ambient Mesh */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  background: radial-gradient(circle at 50% -10%, rgba(15, 139, 141, 0.14) 0%, rgba(15, 139, 141, 0.02) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.arabic-text {
+  font-family: var(--font-ar);
+  direction: rtl;
+}
+
+/* ==========================================================
+   PREMIUM QR SCAN / NFC SPLASH EXPERIENCE
+   Faithful to the physical Workforce Saudia business card
+   ========================================================== */
+
+.splash-screen-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  background: #FFFFFF radial-gradient(circle at 50% 50%, rgba(15, 139, 141, 0.08) 0%, transparent 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.45s ease;
+  perspective: 1200px;
+}
+
+/* Splash Transition Exit States */
+.splash-screen-container.splash-exiting {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .splash-screen-container.splash-exiting .splash-card-frame {
+    transform: perspective(1000px) rotateX(6deg) rotateY(-4deg) translateY(-25px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+}
+
+@media (max-width: 767px) {
+  .splash-screen-container.splash-exiting .splash-card-frame {
+    transform: translateY(-20px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.45s ease, opacity 0.4s ease;
+  }
+}
+
+/* Full Viewport Background SVG Geometric Lines */
+.splash-geometric-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* SVG Self-Drawing Lines Animation via stroke-dashoffset */
+.draw-line-1 {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  animation: drawSvgLine 1.8s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+}
+
+.draw-line-2 {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawSvgLine 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
+}
+
+.draw-line-3 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.6s forwards;
+}
+
+.draw-card-line {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: drawSvgLine 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.25s forwards;
+}
+
+@keyframes drawSvgLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ==========================================================
+   CENTER SPLASH CARD FRAME (PHYSICAL CARD INSPIRED)
+   ========================================================== */
+
+.splash-card-frame {
+  position: relative;
+  z-index: 2;
+  width: 92%;
+  max-width: 820px;
+  min-height: 480px;
+  background: #FFFFFF;
+  border-radius: 32px;
+  border: 1px solid rgba(15, 139, 141, 0.18);
+  box-shadow: 0 25px 70px rgba(8, 72, 75, 0.09), 0 4px 16px rgba(0, 0, 0, 0.03);
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  transform: scale(0.96);
+  opacity: 0;
+  animation: cardMaterialize 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+}
+
+@keyframes cardMaterialize {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Card Top-Right Corner Facet SVG */
+.splash-card-facet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+/* Source Header Pill */
+.splash-source-pill {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(15, 139, 141, 0.07);
+  border: 1px solid rgba(15, 139, 141, 0.2);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--primary-dark);
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: fadeInUp 0.5s ease 0.15s forwards;
+}
+
+.source-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 139, 141, 0.25);
+  animation: pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* Step 1 & 2: Workforce Saudia Logo */
+.splash-logo-container {
+  position: relative;
+  z-index: 3;
+  margin: 10px 0 6px;
+  opacity: 0;
+  transform: scale(0.85);
+  animation: logoReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.splash-brand-logo {
+  max-width: 220px;
+  height: auto;
+}
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Step 3: Minimal Animated NFC Waves */
+.splash-nfc-row {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(245, 250, 250, 0.85);
+  border: 1px solid rgba(15, 139, 141, 0.18);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+}
+
+.splash-nfc-svg {
+  width: 32px;
+  height: 32px;
+}
+
+.nfc-wave {
+  animation: wavePulse 1.6s ease-in-out infinite;
+}
+
+.wave-inner { animation-delay: 0.1s; }
+.wave-mid   { animation-delay: 0.3s; }
+.wave-outer { animation-delay: 0.5s; }
+
+@keyframes wavePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.splash-nfc-text {
+  text-align: left;
+  line-height: 1.2;
+}
+
+.nfc-text-action {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--primary-dark);
+}
+
+.nfc-text-sub {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+/* Step 4: Staggered Person Reveal (Arabic -> English -> Title -> Company) */
+.splash-identity-block {
+  position: relative;
+  z-index: 3;
+  margin: 10px 0 6px;
+}
+
+.splash-ar-name {
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards;
+}
+
+.splash-en-name {
+  font-family: 'Inter', var(--font-en);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  margin-top: 2px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+}
+
+.splash-designation-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.25s forwards;
+}
+
+.splash-ar-title {
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1A2226;
+}
+
+.splash-divider {
+  color: var(--primary-light);
+  font-size: 0.9rem;
+}
+
+.splash-en-title {
+  font-family: 'Inter', var(--font-en);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1A2226;
+  letter-spacing: 0.2px;
+}
+
+.splash-company-text {
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--primary-dark);
+  margin-top: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.35s forwards;
+}
+
+.splash-card-footer {
+  position: relative;
+  z-index: 3;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 1.4s forwards;
+}
+
+.splash-badge-text {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Unobtrusive Skip Button in Corner */
+.splash-skip-button {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+  opacity: 0.75;
+}
+
+.splash-skip-button:hover {
+  opacity: 1;
+  color: var(--primary-dark);
+  background: rgba(15, 139, 141, 0.08);
+}
+
+/* General Reveal Keyframes */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Main App Container Emerging Animation from Splash */
+.app-container {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(22px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
+}
+
+.app-container.card-revealed {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Mobile Adjustments for Splash Frame */
+@media (max-width: 580px) {
+  .splash-card-frame {
+    padding: 30px 18px 24px;
+    min-height: 440px;
+    width: 90%;
+    border-radius: 24px;
+    gap: 12px;
+  }
+
+  .splash-brand-logo {
+    max-width: 180px;
+  }
+
+  .splash-ar-name {
+    font-size: 1.65rem;
+  }
+
+  .splash-en-name {
+    font-size: 1.5rem;
+  }
+
+  .splash-designation-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .splash-divider {
+    display: none;
+  }
+
+  .splash-ar-title {
+    font-size: 0.92rem;
+  }
+
+  .splash-en-title {
+    font-size: 0.9rem;
+  }
+
+  .splash-nfc-row {
+    padding: 6px 14px;
+    gap: 8px;
+  }
+
+  .splash-skip-button {
+    bottom: 10px;
+    right: 12px;
+  }
+}
+
+/* ==========================================================
+   APP WRAPPER & HEADER
+   ========================================================== */
+
+.app-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Top Navigation / Utility Bar */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-pill);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-logo-img {
+  height: 26px;
+  width: auto;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-nav-icon {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-nav-icon:hover {
+  background: var(--primary-subtle);
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================
+   02. HERO DIGITAL BUSINESS CARD
+   Transforming the physical card into interactive 3D component
+   ========================================================== */
+
+.card-perspective-container {
+  perspective: 1200px;
+  margin-bottom: 28px;
+}
+
+.digital-physical-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 30px 28px;
+  box-shadow: 0 16px 40px rgba(8, 72, 75, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(15, 139, 141, 0.22);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  min-height: 310px;
+}
+
+.digital-physical-card:hover {
+  transform: translateY(-4px) rotateX(1.5deg);
+  box-shadow: 0 22px 50px rgba(8, 72, 75, 0.18), 0 4px 12px rgba(15, 139, 141, 0.1);
+}
+
+/* Background Geometric Facets (Matching Physical Card) */
+.card-bg-facets {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.card-content-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 24px;
+}
+
+/* Top Row: Name & Title (Left) + NFC Wave Emblem (Right) */
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-identity-block {
+  text-align: left;
+}
+
+.card-ar-name {
+  font-family: var(--font-ar);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+}
+
+.card-en-name {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  margin-top: 1px;
+}
+
+.card-ar-title {
+  font-family: var(--font-ar);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1F282D;
+  margin-top: 8px;
+  line-height: 1.3;
+}
+
+.card-en-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1F282D;
+  line-height: 1.3;
+  margin-top: 1px;
+}
+
+/* NFC Tap Wave Indicator */
+.card-nfc-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(235, 247, 247, 0.7);
+  border: 1px solid rgba(15, 139, 141, 0.25);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.card-nfc-badge:hover {
+  background: var(--primary-subtle);
+  transform: scale(1.04);
+}
+
+.nfc-emblem {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.nfc-pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  animation: nfcPulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes nfcPulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.nfc-badge-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--primary-dark);
+}
+
+/* Bottom Row of Physical Card: Contact Details (Left) + Corporate Logo (Right) */
+.card-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-physical-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: #2D373C;
+  max-width: 320px;
+}
+
+.contact-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.contact-line:hover {
+  color: var(--primary);
+}
+
+.contact-icon-svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: #1F282D;
+}
+
+.card-logo-container {
+  max-width: 175px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================
+   08. PROFILE AVATAR & EXECUTIVE STATUS BAR
+   ========================================================== */
+
+.executive-identity-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  position: relative;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin: -58px auto 16px;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 10px 24px rgba(15, 139, 141, 0.25);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.avatar-image:hover {
+  transform: scale(1.04);
+}
+
+.avatar-glow-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--primary), var(--primary-light), #FFFFFF, var(--primary));
+  z-index: -1;
+  opacity: 0.4;
+  animation: rotateGlow 8s linear infinite;
+}
+
+@keyframes rotateGlow {
+  to { transform: rotate(360deg); }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #065F46;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.executive-meta h1 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+
+.executive-meta .arabic-name {
+  font-size: 1.3rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.executive-role {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.executive-company {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================
+   PRIMARY CTAS ([ SAVE CONTACT ] & [ CONNECT WITH ME ])
+   ========================================================== */
+
+.hero-cta-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0 10px;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: none;
+  letter-spacing: 0.3px;
+}
+
+.btn-hero-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-teal);
+}
+
+.btn-hero-primary:hover {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(15, 139, 141, 0.32);
+}
+
+.btn-hero-secondary {
+  background: #FFFFFF;
+  color: var(--primary-dark);
+  border: 1.5px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-hero-secondary:hover {
+  background: var(--primary-subtle);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+   03. QUICK ACTION BUTTONS (CALL, WHATSAPP, EMAIL, ETC.)
+   ========================================================== */
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.action-tile {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-main);
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-tile:hover {
+  background: var(--primary-subtle);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.action-tile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(15, 139, 141, 0.09);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.action-tile:hover .action-tile-icon {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.action-tile-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ==========================================================
+   09. NFC MODAL & SCAN TO CONNECT SECTION (09 & 10)
+   ========================================================== */
+
+.qr-nfc-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 20px;
+}
+
+.qr-display-box {
+  display: inline-block;
+  background: #FFFFFF;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(8, 72, 75, 0.08);
+  border: 1.5px solid var(--border-card);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+#qr-canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.qr-actions-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-qr-action {
+  padding: 8px 16px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-smooth);
+}
+
+.btn-qr-action:hover {
+  background: var(--primary-subtle);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+/* ==========================================================
+   05 & 06. PROFESSIONAL PROFILE & COMPANY INFO
+   ========================================================== */
+
+.content-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+}
+
+.profile-quote {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2D3A40;
+  border-left: 3px solid var(--primary);
+  padding-left: 18px;
+  margin: 16px 0;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.profile-quote-ar {
+  border-left: none;
+  border-right: 3px solid var(--primary);
+  padding-left: 0;
+  padding-right: 18px;
+  font-size: 1.08rem;
+  color: #1F2C31;
+}
+
+.company-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.company-badge-logo {
+  height: 38px;
+  width: auto;
+}
+
+/* Optional Statistics */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.stat-item {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.stat-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.stat-lbl {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ==========================================================
+   07 & 18. BUSINESS SOLUTIONS / SERVICES
+   ========================================================== */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.service-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  transition: var(--transition-smooth);
+}
+
+.service-card:hover {
+  background: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.service-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(15, 139, 141, 0.12);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.service-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.service-card .arabic-title {
+  font-size: 0.88rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.service-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   09. CONNECT WITH ME (LEAD CAPTURE FORM)
+   ========================================================== */
+
+.form-group-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-control {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #2D3940;
+  margin-bottom: 6px;
+}
+
+.form-label .req {
+  color: #E11D48;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background: #FFFFFF;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.input-error {
+  border-color: #E11D48 !important;
+  background-color: #FFF5F5 !important;
+}
+
+.field-error {
+  font-size: 0.76rem;
+  color: #E11D48;
+  margin-top: 4px;
+  display: none;
+  font-weight: 500;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Consent Checkbox */
+.checkbox-control {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.checkbox-control input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+/* Off-screen Honeypot */
+.honeypot-field {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Form Buttons */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(15, 139, 141, 0.35);
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Form Status Alerts */
+.form-alert-state {
+  display: none;
+  padding: 28px 20px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-top: 10px;
+  animation: fadeIn 0.4s ease;
+}
+
+.form-success-box {
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+}
+
+.success-check-icon {
+  width: 56px;
+  height: 56px;
+  background: #16A34A;
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 14px;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.25);
+}
+
+.form-error-box {
+  background: #FEF2F2;
+  border: 1.5px solid #FCA5A5;
+}
+
+.fallback-actions-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* ==========================================================
+   10. LOCATION & MAP
+   ========================================================== */
+
+.location-card-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.location-pin-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--primary-subtle);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.location-address-text {
+  font-size: 0.94rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.location-address-ar {
+  font-family: var(--font-ar);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.btn-open-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 18px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.btn-open-map:hover {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+/* ==========================================================
+   12 & 13. FINAL CTA & FOOTER
+   ========================================================== */
+
+.footer-section {
+  text-align: center;
+  padding: 24px 16px 12px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.footer-logo-row {
+  margin-bottom: 12px;
+}
+
+.footer-logo-img {
+  height: 30px;
+  width: auto;
+}
+
+.footer-copy {
+  margin-top: 6px;
+}
+
+/* ==========================================================
+   MOBILE STICKY BOTTOM ACTION BAR
+   ========================================================== */
+
+.sticky-mobile-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-card);
+  padding: 10px 16px 14px;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sticky-bar-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.sticky-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.sticky-btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(15, 139, 141, 0.3);
+}
+
+.sticky-btn-subtle {
+  background: var(--surface-alt);
+  border-color: var(--border-subtle);
+  color: var(--text-main);
+}
+
+.sticky-btn-whatsapp {
+  background: #25D366;
+  color: #FFFFFF;
+}
+
+/* ==========================================================
+   ASSISTED VCARD FIRST-VISIT TOAST
+   ========================================================== */
+
+.vcard-toast {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  width: calc(100% - 32px);
+  max-width: 480px;
+  background: #0F171B;
+  color: #FFFFFF;
+  border: 1px solid rgba(15, 139, 141, 0.4);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vcard-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.toast-text {
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.toast-text strong {
+  display: block;
+  color: var(--primary-light);
+  font-size: 0.92rem;
+}
+
+.toast-btn {
+  background: var(--primary);
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+/* ==========================================================
+   RESPONSIVENESS & ACCESSIBILITY
+   ========================================================== */
+
+@media (max-width: 580px) {
+  .app-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .digital-physical-card {
+    padding: 22px 18px;
+    min-height: auto;
+  }
+
+  .card-ar-name {
+    font-size: 1.4rem;
+  }
+
+  .card-en-name {
+    font-size: 1.45rem;
+  }
+
+  .card-bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .card-logo-container {
+    align-self: flex-end;
+    max-width: 155px;
+  }
+
+  .hero-cta-group {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  /* On desktop, hide bottom sticky bar */
+  body {
+    padding-bottom: 20px;
+  }
+
+  .sticky-mobile-bar {
+    display: none;
+  }
+
+  .vcard-toast {
+    bottom: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  #loading-screen {
+    transition: opacity 0.1s ease;
+  }
+}

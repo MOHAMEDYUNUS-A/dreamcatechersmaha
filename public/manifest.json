@@ -1,0 +1,16 @@
+{
+  "name": "MOHAMED YUNUS A — Documentation & IT Officer | Dream Catchers Foundation",
+  "short_name": "Mohamed Yunus",
+  "description": "Official Executive Digital Card for Mohamed Yunus A, Documentation & IT Officer at Dream Catchers Foundation",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "assets/dream-catchers-logo.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
