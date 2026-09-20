@@ -1,5 +1,5 @@
-// Dream Catchers Foundation - Mohamed Yunus A Service Worker
-const CACHE_NAME = "dream-catchers-mohamed-yunus-v1";
+// Dream Catchers Foundation - JASIM FAWAZ U Service Worker
+const CACHE_NAME = "dream-catchers-jasim-fawaz-v1";
 
 const ASSETS_TO_CACHE = [
   "./",
@@ -7,9 +7,9 @@ const ASSETS_TO_CACHE = [
   "style.css",
   "script.js",
   "manifest.json",
-  "mohamed-yunus.vcf",
+  "jasim-fawaz.vcf",
   "assets/dream-catchers-logo.jpg",
-  "assets/mohamed-yunus.jpg"
+  "assets/jasim-fawaz.png"
 ];
 
 self.addEventListener("install", (e) => {

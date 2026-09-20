@@ -1,5 +1,5 @@
 /**
- * DREAM CATCHERS FOUNDATION - MOHAMED YUNUS A
+ * DREAM CATCHERS FOUNDATION - JASIM FAWAZ U
  * Documentation & IT Officer
  * Executive Digital Visiting Card & Profile Platform
  */
@@ -9,12 +9,12 @@
 // ==========================================================
 const CARD_CONFIG = {
   person: {
-    fullName: "MOHAMED YUNUS A",
-    displayName: "Mohamed Yunus A",
+    fullName: "JASIM FAWAZ U",
+    displayName: "Jasim Fawaz U",
     title: "Documentation & IT Officer",
-    phone: "+91 9597214527",
-    normalizedPhone: "+919597214527",
-    profileImage: "assets/mohamed-yunus.jpg",
+    phone: "+91 94431 92318",
+    normalizedPhone: "+919443192318",
+    profileImage: "assets/jasim-fawaz.png",
     bio: "Documentation & IT Officer at Dream Catchers Foundation. Managing organizational documentation, digital systems, and technical infrastructure while actively driving youth empowerment, education initiatives, and community impact across Tamil Nadu."
   },
   organization: {
@@ -23,14 +23,14 @@ const CARD_CONFIG = {
     tagline: "If it hides we will find it, If it is tough we will hunt it TOGETHER",
     website: "https://dreamcatchersfdn.org/",
     logo: "assets/dream-catchers-logo.jpg",
-    address: "12/57, East main Road, Labbaikudikadu, Kunnam T.k, Perambalur 621108",
+    address: "Plot No 7, Vasanth Nagar, Mutharasanallur, Trichy - 620101",
     headOffice: "NO : 42, 3rd Main Road, Ponnagar, Trichy - 620001",
     email: "dreamcatchersfoundationforall@gmail.com",
     officialPhone: "+91 87789 75962",
     officialWhatsApp: "+91 9087197736"
   },
-  vcardFileName: "mohamed-yunus.vcf",
-  whatsappPresetMessage: "Hello Mohamed Yunus, I am connecting with you through your Dream Catchers Foundation executive card."
+  vcardFileName: "jasim-fawaz.vcf",
+  whatsappPresetMessage: "Hello Jasim Fawaz, I am connecting with you through your Dream Catchers Foundation executive card."
 };
 
 // ==========================================================
@@ -71,11 +71,11 @@ function generateVCardBlob() {
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${CARD_CONFIG.person.fullName}`,
-    "N:Yunus A;Mohamed;;;",
+    "N:Fawaz U;Jasim;;;",
     `ORG:${CARD_CONFIG.organization.name}`,
     `TITLE:${CARD_CONFIG.person.title}`,
     `TEL;TYPE=CELL,VOICE,PREF:${CARD_CONFIG.person.normalizedPhone}`,
-    `ADR;TYPE=WORK,POSTAL:;;12/57, East main Road;Labbaikudikadu, Kunnam T.k;Perambalur;621108;Tamil Nadu, India`,
+    `ADR;TYPE=WORK,POSTAL:;;Plot No 7, Vasanth Nagar;Mutharasanallur;Trichy;620101;Tamil Nadu, India`,
     `URL:${CARD_CONFIG.organization.website}`,
     `NOTE:${CARD_CONFIG.organization.name} - ${CARD_CONFIG.organization.motto} | ${CARD_CONFIG.person.title}`,
     "END:VCARD"
@@ -100,9 +100,9 @@ function triggerDownload(isAuto = false) {
     }, 600);
 
     if (isAuto) {
-      showToast("Mohamed Yunus's vCard downloaded automatically!");
+      showToast("Jasim Fawaz's vCard downloaded automatically!");
     } else {
-      showToast("Mohamed Yunus's contact card saved!");
+      showToast("Jasim Fawaz's contact card saved!");
     }
     return true;
   } catch (err) {
@@ -120,7 +120,7 @@ function triggerDownload(isAuto = false) {
         if (a.parentNode) document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 600);
-      showToast("Mohamed Yunus's contact card saved!");
+      showToast("Jasim Fawaz's contact card saved!");
       return true;
     } catch (e) {
       console.error("Blob vCard fallback failed:", e);
@@ -169,7 +169,7 @@ function initShareAndCopy() {
   const copyAddressBtn = document.getElementById("btn-copy-address");
   if (copyAddressBtn) {
     copyAddressBtn.addEventListener("click", async () => {
-      const addressText = "12/57, East main Road, Labbaikudikadu, Kunnam T.k, Perambalur 621108, Tamil Nadu";
+      const addressText = "Plot No 7, Vasanth Nagar, Mutharasanallur, Trichy - 620101, Tamil Nadu";
       try {
         await navigator.clipboard.writeText(addressText);
         showToast("Address copied to clipboard!");
@@ -186,8 +186,8 @@ function initShareAndCopy() {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: "MOHAMED YUNUS A — Documentation & IT Officer | Dream Catchers Foundation",
-            text: "Official Digital Executive Card of Mohamed Yunus A (Documentation & IT Officer - Dream Catchers Foundation)",
+            title: "JASIM FAWAZ U — Documentation & IT Officer | Dream Catchers Foundation",
+            text: "Official Digital Executive Card of Jasim Fawaz U (Documentation & IT Officer - Dream Catchers Foundation)",
             url: window.location.href
           });
         } catch (e) {
