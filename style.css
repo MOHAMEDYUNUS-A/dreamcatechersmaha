@@ -1,7 +1,6 @@
 /* ==========================================================
-   DREAM CATCHERS FOUNDATION — JASIM FAWAZ U
-   Documentation & IT Officer
-   Executive Digital Visiting Card & Profile Platform
+   DREAM CATCHERS FOUNDATION — SIVARANJANI
+   Executive Profile & Digital Identification Platform
    Design System: Ultra-Clean Luxury LIGHT THEME
    Brand Palette: Pristine White, Royal Sky Blue (#0284C7 / #06B6D4), Radiant Pink (#EC117F)
    ========================================================== */
@@ -504,6 +503,26 @@ body::after {
   border-color: #dcfce7;
 }
 
+.channel-tile.tile-emergency {
+  border-color: #fecdd3;
+  background: linear-gradient(145deg, #ffffff 0%, #fff1f2 100%);
+}
+
+.channel-tile.tile-emergency:hover {
+  border-color: #fda4af;
+  box-shadow: 0 10px 24px rgba(225, 29, 72, 0.12);
+}
+
+.channel-tile.tile-emergency .channel-icon-wrap {
+  background: #ffe4e6;
+  color: #e11d48;
+  border-color: #fecdd3;
+}
+
+.channel-tile.tile-emergency .channel-label {
+  color: #e11d48;
+}
+
 .channel-info {
   display: flex;
   flex-direction: column;
@@ -522,6 +541,144 @@ body::after {
   font-size: 0.98rem;
   font-weight: 700;
   color: var(--text-heading);
+}
+
+/* ==========================================================
+   PERSONAL IDENTITY & VITAL DETAILS CARD
+   ========================================================== */
+.vitals-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 38px 40px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.vitals-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e11d48 0%, var(--dc-pink) 50%, var(--dc-blue) 100%);
+}
+
+.vitals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.vital-tile {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: var(--transition);
+}
+
+.vital-tile:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  border-color: #bae6fd;
+  box-shadow: var(--shadow-sm);
+}
+
+.vital-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vital-icon-blue {
+  background: #f0f9ff;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+}
+
+.vital-icon-pink {
+  background: #fdf2f8;
+  color: #ec117f;
+  border: 1px solid #fbcfe8;
+}
+
+.vital-icon-red {
+  background: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+}
+
+.vital-icon-emerald {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.vital-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.vital-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.vital-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.25;
+  font-family: var(--font-heading);
+}
+
+.vital-subtext {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.vital-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--dc-blue);
+  text-decoration: none;
+  margin-top: 6px;
+  transition: var(--transition);
+}
+
+.vital-action-link:hover {
+  color: var(--dc-pink);
+  text-decoration: underline;
+}
+
+.vital-tile.vital-emergency-highlight {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffffff 100%);
+  border-color: #fecdd3;
+}
+
+.vital-tile.vital-emergency-highlight:hover {
+  border-color: #fda4af;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.12);
 }
 
 /* ==========================================================

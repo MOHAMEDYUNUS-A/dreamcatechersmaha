@@ -1,7 +1,6 @@
 /**
- * DREAM CATCHERS FOUNDATION - JASIM FAWAZ U
- * Documentation & IT Officer
- * Executive Digital Visiting Card & Profile Platform
+ * DREAM CATCHERS FOUNDATION - SIVARANJANI
+ * Executive Digital Profile & Visiting Card
  */
 
 // ==========================================================
@@ -9,13 +8,15 @@
 // ==========================================================
 const CARD_CONFIG = {
   person: {
-    fullName: "JASIM FAWAZ U",
-    displayName: "Jasim Fawaz U",
-    title: "Documentation & IT Officer",
-    phone: "+91 94431 92318",
-    normalizedPhone: "+919443192318",
-    profileImage: "assets/jasim-fawaz.png",
-    bio: "Documentation & IT Officer at Dream Catchers Foundation. Managing organizational documentation, digital systems, and technical infrastructure while actively driving youth empowerment, education initiatives, and community impact across Tamil Nadu."
+    fullName: "Sivaranjani",
+    displayName: "Sivaranjani",
+    title: "Executive Member",
+    phone: "+91 93455 97668",
+    normalizedPhone: "+919345597668",
+    bloodGroup: "A1+ve",
+    address: "49/C Paari nagar ,kk nagar Trichy -620021",
+    profileImage: "assets/siva.jpeg",
+    bio: "Dedicated member at Dream Catchers Foundation. Actively driving youth empowerment, education accessibility, healthcare outreach, and community impact across Tamil Nadu."
   },
   organization: {
     name: "Dream Catchers Foundation",
@@ -23,14 +24,14 @@ const CARD_CONFIG = {
     tagline: "If it hides we will find it, If it is tough we will hunt it TOGETHER",
     website: "https://dreamcatchersfdn.org/",
     logo: "assets/dream-catchers-logo.jpg",
-    address: "Plot No 7, Vasanth Nagar, Mutharasanallur, Trichy - 620101",
+    address: "49/C Paari nagar ,kk nagar Trichy -620021",
     headOffice: "NO : 42, 3rd Main Road, Ponnagar, Trichy - 620001",
     email: "dreamcatchersfoundationforall@gmail.com",
     officialPhone: "+91 87789 75962",
     officialWhatsApp: "+91 9087197736"
   },
-  vcardFileName: "jasim-fawaz.vcf",
-  whatsappPresetMessage: "Hello Jasim Fawaz, I am connecting with you through your Dream Catchers Foundation executive card."
+  vcardFileName: "sivaranjani.vcf",
+  whatsappPresetMessage: "Hello Sivaranjani, I am connecting with you through your Dream Catchers Foundation card."
 };
 
 // ==========================================================
@@ -71,13 +72,13 @@ function generateVCardBlob() {
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${CARD_CONFIG.person.fullName}`,
-    "N:Fawaz U;Jasim;;;",
+    "N:;Sivaranjani;;;",
     `ORG:${CARD_CONFIG.organization.name}`,
     `TITLE:${CARD_CONFIG.person.title}`,
     `TEL;TYPE=CELL,VOICE,PREF:${CARD_CONFIG.person.normalizedPhone}`,
-    `ADR;TYPE=WORK,POSTAL:;;Plot No 7, Vasanth Nagar;Mutharasanallur;Trichy;620101;Tamil Nadu, India`,
+    `ADR;TYPE=HOME,POSTAL:;;49/C Paari nagar, KK nagar;Trichy;620021;Tamil Nadu, India`,
     `URL:${CARD_CONFIG.organization.website}`,
-    `NOTE:${CARD_CONFIG.organization.name} - ${CARD_CONFIG.organization.motto} | ${CARD_CONFIG.person.title}`,
+    `NOTE:${CARD_CONFIG.organization.name} - ${CARD_CONFIG.organization.motto} | Blood Group: ${CARD_CONFIG.person.bloodGroup}`,
     "END:VCARD"
   ].join("\r\n");
 
@@ -100,9 +101,9 @@ function triggerDownload(isAuto = false) {
     }, 600);
 
     if (isAuto) {
-      showToast("Jasim Fawaz's vCard downloaded automatically!");
+      showToast("Sivaranjani's vCard downloaded automatically!");
     } else {
-      showToast("Jasim Fawaz's contact card saved!");
+      showToast("Sivaranjani's contact card saved!");
     }
     return true;
   } catch (err) {
@@ -120,7 +121,7 @@ function triggerDownload(isAuto = false) {
         if (a.parentNode) document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 600);
-      showToast("Jasim Fawaz's contact card saved!");
+      showToast("Sivaranjani's contact card saved!");
       return true;
     } catch (e) {
       console.error("Blob vCard fallback failed:", e);
@@ -169,7 +170,7 @@ function initShareAndCopy() {
   const copyAddressBtn = document.getElementById("btn-copy-address");
   if (copyAddressBtn) {
     copyAddressBtn.addEventListener("click", async () => {
-      const addressText = "Plot No 7, Vasanth Nagar, Mutharasanallur, Trichy - 620101, Tamil Nadu";
+      const addressText = "49/C Paari nagar ,kk nagar Trichy -620021, Tamil Nadu";
       try {
         await navigator.clipboard.writeText(addressText);
         showToast("Address copied to clipboard!");
@@ -186,8 +187,8 @@ function initShareAndCopy() {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: "JASIM FAWAZ U — Documentation & IT Officer | Dream Catchers Foundation",
-            text: "Official Digital Executive Card of Jasim Fawaz U (Documentation & IT Officer - Dream Catchers Foundation)",
+            title: "SIVARANJANI — Executive Profile | Dream Catchers Foundation",
+            text: "Official Digital Executive Card of Sivaranjani (Dream Catchers Foundation)",
             url: window.location.href
           });
         } catch (e) {
