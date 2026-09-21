@@ -1,0 +1,16 @@
+{
+  "name": "MAHALAKSHMI S — Field Coordinator & Content Creator | Dream Catchers Foundation",
+  "short_name": "Mahalakshmi S",
+  "description": "Official Executive Digital Card for Mahalakshmi S, Field Coordinator & Content Creator at Dream Catchers Foundation",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "assets/dream-catchers-logo.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
