@@ -1,6 +1,6 @@
 /**
- * DREAM CATCHERS FOUNDATION - YUVARAJ GOVINDARAJ
- * Founder & Managing Trustee | Digital Profile & Visiting Card
+ * DREAM CATCHERS FOUNDATION - MAHALAKSHMI S
+ * Field Coordinator & Content Creator | Digital Profile & Visiting Card
  */
 
 // ==========================================================
@@ -8,16 +8,16 @@
 // ==========================================================
 const CARD_CONFIG = {
   person: {
-    fullName: "Yuvaraj Govindaraj",
-    displayName: "Yuvaraj Govindaraj",
-    title: "Founder & Managing Trustee",
-    dob: "10/10/1994",
-    phone: "+91 90871 97736",
-    normalizedPhone: "+919087197736",
-    bloodGroup: "A1B+ve",
-    address: "No 27 Panickan Street, Woriyur, Trichy - 620003",
-    profileImage: "assets/YUVA.jpeg",
-    bio: "Founder & Managing Trustee at Dream Catchers Foundation. Visionary leader driving youth empowerment, equal opportunities, education, sports, and community development across Tamil Nadu."
+    fullName: "Mahalakshmi S",
+    displayName: "Mahalakshmi S",
+    title: "Field Coordinator & Content Creator",
+    dob: "04/11/2007",
+    phone: "+91 96778 12225",
+    normalizedPhone: "+919677812225",
+    bloodGroup: "B+ve",
+    address: "No: 49/C Pari Nagar, KK Nagar, Trichy - 620021",
+    profileImage: "assets/MAHA.PNG",
+    bio: "Field Coordinator & Content Creator at Dream Catchers Foundation. Driving grassroots community coordination, youth outreach, and creating inspiring visual stories for community empowerment."
   },
   organization: {
     name: "Dream Catchers Foundation",
@@ -31,8 +31,8 @@ const CARD_CONFIG = {
     officialPhone: "+91 87789 75962",
     officialWhatsApp: "+91 9087197736"
   },
-  vcardFileName: "yuvaraj.vcf",
-  whatsappPresetMessage: "Hello Yuvaraj, I am connecting with you through your Dream Catchers Foundation card."
+  vcardFileName: "mahalakshmi.vcf",
+  whatsappPresetMessage: "Hello Mahalakshmi, I am connecting with you through your Dream Catchers Foundation card."
 };
 
 // ==========================================================
@@ -59,6 +59,24 @@ function init() {
   // 5. Animated Number Counters
   initNumberCounters();
 
+  // Clean up any stale service workers or caches from previous sessions
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (const registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+  if ('caches' in window) {
+    caches.keys().then((keys) => {
+      keys.forEach((key) => {
+        if (key.includes('yuvaraj') || key.includes('v1')) {
+          caches.delete(key);
+        }
+      });
+    });
+  }
+
   // 6. AUTOMATIC VCARD DOWNLOAD ON PAGE LOAD
   setTimeout(() => {
     autoDownloadVCard();
@@ -73,14 +91,14 @@ function generateVCardBlob() {
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${CARD_CONFIG.person.fullName}`,
-    "N:Govindaraj;Yuvaraj;;;",
+    "N:S;Mahalakshmi;;;",
     `ORG:${CARD_CONFIG.organization.name}`,
     `TITLE:${CARD_CONFIG.person.title}`,
-    "BDAY:1994-10-10",
+    "BDAY:2007-11-04",
     `TEL;TYPE=CELL,VOICE,PREF:${CARD_CONFIG.person.normalizedPhone}`,
-    `ADR;TYPE=HOME,POSTAL:;;No 27 Panickan Street, Woriyur;Trichy;620003;Tamil Nadu, India`,
+    `ADR;TYPE=HOME,POSTAL:;;No: 49/C Pari Nagar, KK Nagar;Trichy;620021;Tamil Nadu, India`,
     `URL:${CARD_CONFIG.organization.website}`,
-    `NOTE:${CARD_CONFIG.organization.name} - ${CARD_CONFIG.organization.motto} | Blood Group: ${CARD_CONFIG.person.bloodGroup}`,
+    `NOTE:${CARD_CONFIG.organization.name} - ${CARD_CONFIG.organization.motto} | ${CARD_CONFIG.person.title} | Blood Group: ${CARD_CONFIG.person.bloodGroup}`,
     "END:VCARD"
   ].join("\r\n");
 
@@ -103,9 +121,9 @@ function triggerDownload(isAuto = false) {
     }, 600);
 
     if (isAuto) {
-      showToast("Yuvaraj's vCard downloaded automatically!");
+      showToast("Mahalakshmi's vCard downloaded automatically!");
     } else {
-      showToast("Yuvaraj's contact card saved!");
+      showToast("Mahalakshmi's contact card saved!");
     }
     return true;
   } catch (err) {
@@ -123,7 +141,7 @@ function triggerDownload(isAuto = false) {
         if (a.parentNode) document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 600);
-      showToast("Yuvaraj's contact card saved!");
+      showToast("Mahalakshmi's contact card saved!");
       return true;
     } catch (e) {
       console.error("Blob vCard fallback failed:", e);
@@ -172,7 +190,7 @@ function initShareAndCopy() {
   const copyAddressBtn = document.getElementById("btn-copy-address");
   if (copyAddressBtn) {
     copyAddressBtn.addEventListener("click", async () => {
-      const addressText = "No 27 Panickan Street, Woriyur, Trichy - 620003, Tamil Nadu, India";
+      const addressText = "No: 49/C Pari Nagar, KK Nagar, Trichy - 620021, Tamil Nadu, India";
       try {
         await navigator.clipboard.writeText(addressText);
         showToast("Address copied to clipboard!");
@@ -189,8 +207,8 @@ function initShareAndCopy() {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: "YUVARAJ GOVINDARAJ — Founder & Managing Trustee | Dream Catchers Foundation",
-            text: "Official Digital Executive Card of Yuvaraj Govindaraj (Dream Catchers Foundation)",
+            title: "MAHALAKSHMI S — Field Coordinator & Content Creator | Dream Catchers Foundation",
+            text: "Official Digital Executive Card of Mahalakshmi S (Dream Catchers Foundation)",
             url: window.location.href
           });
         } catch (e) {

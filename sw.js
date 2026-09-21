@@ -1,5 +1,5 @@
-// Dream Catchers Foundation - YUVARAJ GOVINDARAJ Service Worker
-const CACHE_NAME = "dream-catchers-yuvaraj-v1";
+// Dream Catchers Foundation - MAHALAKSHMI S Service Worker
+const CACHE_NAME = "dream-catchers-mahalakshmi-v1";
 
 const ASSETS_TO_CACHE = [
   "./",
@@ -7,9 +7,9 @@ const ASSETS_TO_CACHE = [
   "style.css",
   "script.js",
   "manifest.json",
-  "yuvaraj.vcf",
+  "mahalakshmi.vcf",
   "assets/dream-catchers-logo.jpg",
-  "assets/YUVA.jpeg"
+  "assets/MAHA.PNG"
 ];
 
 self.addEventListener("install", (e) => {
