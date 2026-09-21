@@ -1,6 +1,6 @@
 /**
- * DREAM CATCHERS FOUNDATION - SIVARANJANI
- * Executive Digital Profile & Visiting Card
+ * DREAM CATCHERS FOUNDATION - YUVARAJ GOVINDARAJ
+ * Founder & Managing Trustee | Digital Profile & Visiting Card
  */
 
 // ==========================================================
@@ -8,15 +8,16 @@
 // ==========================================================
 const CARD_CONFIG = {
   person: {
-    fullName: "Sivaranjani",
-    displayName: "Sivaranjani",
-    title: "Executive Member",
-    phone: "+91 93455 97668",
-    normalizedPhone: "+919345597668",
-    bloodGroup: "A1+ve",
-    address: "49/C Paari nagar ,kk nagar Trichy -620021",
-    profileImage: "assets/siva.jpeg",
-    bio: "Dedicated member at Dream Catchers Foundation. Actively driving youth empowerment, education accessibility, healthcare outreach, and community impact across Tamil Nadu."
+    fullName: "Yuvaraj Govindaraj",
+    displayName: "Yuvaraj Govindaraj",
+    title: "Founder & Managing Trustee",
+    dob: "10/10/1994",
+    phone: "+91 90871 97736",
+    normalizedPhone: "+919087197736",
+    bloodGroup: "A1B+ve",
+    address: "No 27 Panickan Street, Woriyur, Trichy - 620003",
+    profileImage: "assets/YUVA.jpeg",
+    bio: "Founder & Managing Trustee at Dream Catchers Foundation. Visionary leader driving youth empowerment, equal opportunities, education, sports, and community development across Tamil Nadu."
   },
   organization: {
     name: "Dream Catchers Foundation",
@@ -24,14 +25,14 @@ const CARD_CONFIG = {
     tagline: "If it hides we will find it, If it is tough we will hunt it TOGETHER",
     website: "https://dreamcatchersfdn.org/",
     logo: "assets/dream-catchers-logo.jpg",
-    address: "49/C Paari nagar ,kk nagar Trichy -620021",
+    address: "No 27 Panickan Street, Woriyur, Trichy - 620003",
     headOffice: "NO : 42, 3rd Main Road, Ponnagar, Trichy - 620001",
     email: "dreamcatchersfoundationforall@gmail.com",
     officialPhone: "+91 87789 75962",
     officialWhatsApp: "+91 9087197736"
   },
-  vcardFileName: "sivaranjani.vcf",
-  whatsappPresetMessage: "Hello Sivaranjani, I am connecting with you through your Dream Catchers Foundation card."
+  vcardFileName: "yuvaraj.vcf",
+  whatsappPresetMessage: "Hello Yuvaraj, I am connecting with you through your Dream Catchers Foundation card."
 };
 
 // ==========================================================
@@ -72,11 +73,12 @@ function generateVCardBlob() {
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${CARD_CONFIG.person.fullName}`,
-    "N:;Sivaranjani;;;",
+    "N:Govindaraj;Yuvaraj;;;",
     `ORG:${CARD_CONFIG.organization.name}`,
     `TITLE:${CARD_CONFIG.person.title}`,
+    "BDAY:1994-10-10",
     `TEL;TYPE=CELL,VOICE,PREF:${CARD_CONFIG.person.normalizedPhone}`,
-    `ADR;TYPE=HOME,POSTAL:;;49/C Paari nagar, KK nagar;Trichy;620021;Tamil Nadu, India`,
+    `ADR;TYPE=HOME,POSTAL:;;No 27 Panickan Street, Woriyur;Trichy;620003;Tamil Nadu, India`,
     `URL:${CARD_CONFIG.organization.website}`,
     `NOTE:${CARD_CONFIG.organization.name} - ${CARD_CONFIG.organization.motto} | Blood Group: ${CARD_CONFIG.person.bloodGroup}`,
     "END:VCARD"
@@ -101,9 +103,9 @@ function triggerDownload(isAuto = false) {
     }, 600);
 
     if (isAuto) {
-      showToast("Sivaranjani's vCard downloaded automatically!");
+      showToast("Yuvaraj's vCard downloaded automatically!");
     } else {
-      showToast("Sivaranjani's contact card saved!");
+      showToast("Yuvaraj's contact card saved!");
     }
     return true;
   } catch (err) {
@@ -121,7 +123,7 @@ function triggerDownload(isAuto = false) {
         if (a.parentNode) document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 600);
-      showToast("Sivaranjani's contact card saved!");
+      showToast("Yuvaraj's contact card saved!");
       return true;
     } catch (e) {
       console.error("Blob vCard fallback failed:", e);
@@ -170,7 +172,7 @@ function initShareAndCopy() {
   const copyAddressBtn = document.getElementById("btn-copy-address");
   if (copyAddressBtn) {
     copyAddressBtn.addEventListener("click", async () => {
-      const addressText = "49/C Paari nagar ,kk nagar Trichy -620021, Tamil Nadu";
+      const addressText = "No 27 Panickan Street, Woriyur, Trichy - 620003, Tamil Nadu, India";
       try {
         await navigator.clipboard.writeText(addressText);
         showToast("Address copied to clipboard!");
@@ -187,8 +189,8 @@ function initShareAndCopy() {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: "SIVARANJANI — Executive Profile | Dream Catchers Foundation",
-            text: "Official Digital Executive Card of Sivaranjani (Dream Catchers Foundation)",
+            title: "YUVARAJ GOVINDARAJ — Founder & Managing Trustee | Dream Catchers Foundation",
+            text: "Official Digital Executive Card of Yuvaraj Govindaraj (Dream Catchers Foundation)",
             url: window.location.href
           });
         } catch (e) {
